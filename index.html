@@ -406,29 +406,56 @@ const carsEl = document.getElementById("cars");
 const rankEl = document.getElementById("rankCars");
 const favEl = document.getElementById("favCars");
 
+
 function carCard(car, index) {
   const isFav = favorites.includes(car.id);
+
+  const soundQueries = {
+    1: "Lamborghini Huracan STO engine sound",
+    2: "Ferrari SF90 Stradale engine sound",
+    3: "Porsche 911 GT3 RS engine sound",
+    4: "Bugatti Chiron engine sound",
+    5: "McLaren 720S engine sound",
+    6: "Lamborghini Aventador SVJ engine sound"
+  };
+
+  const soundUrl =
+    "https://www.youtube.com/results?search_query=" +
+    encodeURIComponent(soundQueries[car.id]);
+
   return `
     <article class="card">
       <img class="car-image" src="${car.image}" alt="${car.brand} ${car.name}"
            loading="lazy" onerror="this.style.display='none'">
+
       <div class="card-content">
         ${index !== undefined ? `<div class="rank">#${index + 1} PERFORMANCE</div>` : ""}
         <div class="brand">${car.brand.toUpperCase()}</div>
         <h3>${car.name}</h3>
+
         <div class="specs">
           <div class="spec"><small>Potência</small><strong>${car.power.toLocaleString("pt-PT")} cv</strong></div>
           <div class="spec"><small>Velocidade máx.</small><strong>${car.speed} km/h</strong></div>
           <div class="spec"><small>0–100 km/h</small><strong>${car.zero}</strong></div>
           <div class="spec"><small>Motor</small><strong>${car.engine}</strong></div>
         </div>
+
         <div class="card-actions">
           <button class="btn" onclick="showDetails(${car.id})">VER DETALHES</button>
-          <button class="secondary ${isFav ? "active" : ""}" aria-label="Adicionar ${car.name} aos favoritos" onclick="toggleFav(${car.id})">${isFav ? "♥" : "♡"}</button>
+          <button class="secondary ${isFav ? "active" : ""}"
+            aria-label="Adicionar ${car.name} aos favoritos"
+            onclick="toggleFav(${car.id})">${isFav ? "♥" : "♡"}</button>
         </div>
+
+        <a class="btn" href="${soundUrl}" target="_blank"
+           rel="noopener"
+           style="display:block;text-align:center;margin-top:10px">
+          🔊 OUVIR MOTOR
+        </a>
       </div>
     </article>`;
 }
+
 
 function render() {
   const query = document.getElementById("search").value.toLowerCase().trim();
