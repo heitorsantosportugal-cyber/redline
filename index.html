@@ -1,0 +1,435 @@
+
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>REDLINE | Beyond the Limit</title>
+<style>
+:root {
+  --red: #ff3038;
+  --bg: #090909;
+  --panel: #141414;
+  --muted: #999;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+}
+header {
+  height: 72px;
+  padding: 0 7%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #252525;
+  background: #090909;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.logo {
+  font-size: 27px;
+  font-weight: 1000;
+  letter-spacing: 3px;
+}
+.logo span { color: var(--red); }
+nav { display: flex; gap: 24px; }
+nav a {
+  color: #ccc;
+  text-decoration: none;
+  font-size: 13px;
+}
+nav a:hover { color: var(--red); }
+.hero {
+  min-height: 450px;
+  padding: 85px 8%;
+  display: flex;
+  align-items: center;
+  background:
+    linear-gradient(90deg, #090909 8%, #090909dd 45%, #09090922),
+    url("https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1800&q=85")
+    center 55%/cover;
+}
+.hero-content { max-width: 560px; }
+.eyebrow {
+  color: var(--red);
+  font-weight: bold;
+  letter-spacing: 4px;
+  font-size: 12px;
+}
+h1 {
+  font-size: clamp(48px, 8vw, 88px);
+  line-height: .95;
+  margin: 20px 0;
+  letter-spacing: -3px;
+}
+h1 span { color: var(--red); }
+.hero p { color: #ccc; line-height: 1.7; }
+.btn {
+  background: var(--red);
+  color: white;
+  border: 0;
+  padding: 14px 21px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 3px;
+  display: inline-block;
+  text-decoration: none;
+}
+.btn:hover { background: #d71925; }
+section { padding: 55px 7%; }
+.section-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-bottom: 25px;
+}
+h2 { font-size: 29px; margin: 0 0 8px; }
+.subtitle { color: var(--muted); font-size: 14px; }
+.tools { display: flex; gap: 9px; flex-wrap: wrap; }
+input, select {
+  background: #171717;
+  color: white;
+  border: 1px solid #333;
+  padding: 12px;
+  border-radius: 4px;
+  min-width: 145px;
+}
+input:focus, select:focus { outline: 1px solid var(--red); }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+.card {
+  background: var(--panel);
+  border: 1px solid #292929;
+  border-radius: 6px;
+  overflow: hidden;
+  transition: transform .2s, border-color .2s;
+}
+.card:hover {
+  transform: translateY(-4px);
+  border-color: var(--red);
+}
+.car-image {
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+  background: #222;
+  display: block;
+}
+.card-content { padding: 18px; }
+.brand {
+  color: var(--red);
+  font-size: 10px;
+  letter-spacing: 2px;
+  font-weight: bold;
+}
+.card h3 { margin: 9px 0 15px; font-size: 21px; }
+.specs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 17px 0;
+}
+.spec {
+  background: #0c0c0c;
+  padding: 11px;
+  border-radius: 3px;
+}
+.spec small { color: var(--muted); display: block; margin-bottom: 6px; }
+.spec strong { font-size: 14px; }
+.card-actions { display: flex; gap: 8px; }
+.card-actions button { flex: 1; }
+.secondary {
+  background: transparent;
+  border: 1px solid #444;
+  color: white;
+  padding: 12px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.secondary:hover, .secondary.active { border-color: var(--red); color: var(--red); }
+.rank { color: var(--red); font-size: 13px; font-weight: bold; }
+.empty {
+  grid-column: 1/-1;
+  color: var(--muted);
+  padding: 40px 0;
+  text-align: center;
+}
+.stats {
+  background: #111;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  text-align: center;
+}
+.stat strong { display: block; color: var(--red); font-size: 30px; }
+.stat span { color: #aaa; font-size: 12px; }
+footer {
+  border-top: 1px solid #292929;
+  padding: 30px 7%;
+  color: #888;
+  font-size: 12px;
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+dialog {
+  background: #151515;
+  color: white;
+  border: 1px solid #444;
+  border-radius: 8px;
+  max-width: 520px;
+  width: calc(100% - 32px);
+  padding: 25px;
+}
+dialog::backdrop { background: #000c; }
+dialog h2 { margin-bottom: 15px; }
+dialog p { color: #ccc; line-height: 1.7; }
+@media(max-width:850px) {
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  nav { gap: 12px; }
+}
+@media(max-width:560px) {
+  header { padding: 0 5%; height: 64px; }
+  .logo { font-size: 22px; }
+  nav a { font-size: 11px; }
+  nav { gap: 10px; }
+  .hero { min-height: 400px; padding: 60px 6%; }
+  section { padding: 40px 5%; }
+  .grid { grid-template-columns: 1fr; }
+  .car-image { height: 220px; }
+  .stats { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">RED<span>LINE</span></div>
+  <nav>
+    <a href="#garage">Garagem</a>
+    <a href="#ranking">Ranking</a>
+    <a href="#favorites">♥ Favoritos</a>
+  </nav>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="hero-content">
+      <div class="eyebrow">THE WORLD OF SUPERCARS</div>
+      <h1>BEYOND<br>THE <span>LIMIT.</span></h1>
+      <p>Potência. Engenharia. Adrenalina.<br>
+      Descobre algumas das máquinas mais incríveis do mundo automóvel.</p>
+      <a class="btn" href="#garage">EXPLORAR GARAGEM ↗</a>
+    </div>
+  </div>
+
+  <section class="stats">
+    <div class="stat"><strong id="total">6</strong><span>SUPERCARROS</span></div>
+    <div class="stat"><strong id="favCount">0</strong><span>OS TEUS FAVORITOS</span></div>
+    <div class="stat"><strong>∞</strong><span>PAIXÃO PELA VELOCIDADE</span></div>
+  </section>
+
+  <section id="garage">
+    <div class="section-top">
+      <div>
+        <h2>THE GARAGE<span style="color:var(--red)">.</span></h2>
+        <div class="subtitle">Explora as máquinas. Compara os números.</div>
+      </div>
+      <div class="tools">
+        <input id="search" type="search" placeholder="Pesquisar carro..." aria-label="Pesquisar carro">
+        <select id="brand" aria-label="Filtrar marca">
+          <option value="">Todas as marcas</option>
+          <option>Lamborghini</option>
+          <option>Ferrari</option>
+          <option>Porsche</option>
+          <option>Bugatti</option>
+          <option>McLaren</option>
+        </select>
+      </div>
+    </div>
+    <div class="grid" id="cars"></div>
+  </section>
+
+  <section id="ranking">
+    <div class="section-top">
+      <div>
+        <h2>TOP PERFORMANCE<span style="color:var(--red)">.</span></h2>
+        <div class="subtitle">Ranking por velocidade máxima indicada.</div>
+      </div>
+    </div>
+    <div class="grid" id="rankCars"></div>
+  </section>
+
+  <section id="favorites">
+    <div class="section-top">
+      <div>
+        <h2>MY FAVORITES<span style="color:var(--red)">.</span></h2>
+        <div class="subtitle">A tua coleção pessoal, guardada neste navegador.</div>
+      </div>
+    </div>
+    <div class="grid" id="favCars"></div>
+  </section>
+</main>
+
+<footer>
+  <div class="logo">RED<span>LINE</span></div>
+  <div>BEYOND THE LIMIT. · Projeto independente de fãs de automóveis.</div>
+  <div>Dados aproximados; versões e especificações podem variar.</div>
+</footer>
+
+<dialog id="details">
+  <div id="detailContent"></div>
+  <button class="btn" onclick="document.getElementById('details').close()">FECHAR</button>
+</dialog>
+
+<script>
+const cars = [
+  {
+    id: 1, brand: "Lamborghini", name: "Huracán STO",
+    power: 640, speed: 310, zero: "3,0 s", engine: "V10 5.2L",
+    image: "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?auto=format&fit=crop&w=900&q=80",
+    description: "Uma máquina inspirada na competição, com motor V10 atmosférico e foco na condução desportiva."
+  },
+  {
+    id: 2, brand: "Ferrari", name: "SF90 Stradale",
+    power: 1000, speed: 340, zero: "2,5 s", engine: "V8 híbrido",
+    image: "https://images.unsplash.com/photo-1592198084033-aade902d1aae?auto=format&fit=crop&w=900&q=80",
+    description: "Um superdesportivo híbrido que combina um motor V8 com motores elétricos."
+  },
+  {
+    id: 3, brand: "Porsche", name: "911 GT3 RS",
+    power: 525, speed: 296, zero: "3,2 s", engine: "Boxer 4.0L",
+    image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=900&q=80",
+    description: "Aerodinâmica avançada e engenharia focada em oferecer uma experiência de pista."
+  },
+  {
+    id: 4, brand: "Bugatti", name: "Chiron",
+    power: 1500, speed: 420, zero: "2,4 s", engine: "W16 8.0L",
+    image: "https://images.unsplash.com/photo-1566023888477-1f7e4f4d1e4b?auto=format&fit=crop&w=900&q=80",
+    description: "Um hipercarro de luxo conhecido pelo motor W16 quad-turbo e pela enorme potência."
+  },
+  {
+    id: 5, brand: "McLaren", name: "720S",
+    power: 720, speed: 341, zero: "2,9 s", engine: "V8 4.0L",
+    image: "https://images.unsplash.com/photo-1621135802920-133df287f89c?auto=format&fit=crop&w=900&q=80",
+    description: "Construção leve, motor V8 biturbo e uma abordagem muito focada na performance."
+  },
+  {
+    id: 6, brand: "Lamborghini", name: "Aventador SVJ",
+    power: 770, speed: 350, zero: "2,8 s", engine: "V12 6.5L",
+    image: "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=900&q=80",
+    description: "Um Lamborghini V12 de carácter marcante, com aerodinâmica ativa e som inconfundível."
+  }
+];
+
+let favorites = [];
+try {
+  favorites = JSON.parse(localStorage.getItem("redline-favorites") || "[]");
+  if (!Array.isArray(favorites)) favorites = [];
+} catch (e) {
+  favorites = [];
+}
+
+const carsEl = document.getElementById("cars");
+const rankEl = document.getElementById("rankCars");
+const favEl = document.getElementById("favCars");
+
+function carCard(car, index) {
+  const isFav = favorites.includes(car.id);
+  return `
+    <article class="card">
+      <img class="car-image" src="${car.image}" alt="${car.brand} ${car.name}"
+           loading="lazy" onerror="this.style.display='none'">
+      <div class="card-content">
+        ${index !== undefined ? `<div class="rank">#${index + 1} PERFORMANCE</div>` : ""}
+        <div class="brand">${car.brand.toUpperCase()}</div>
+        <h3>${car.name}</h3>
+        <div class="specs">
+          <div class="spec"><small>Potência</small><strong>${car.power.toLocaleString("pt-PT")} cv</strong></div>
+          <div class="spec"><small>Velocidade máx.</small><strong>${car.speed} km/h</strong></div>
+          <div class="spec"><small>0–100 km/h</small><strong>${car.zero}</strong></div>
+          <div class="spec"><small>Motor</small><strong>${car.engine}</strong></div>
+        </div>
+        <div class="card-actions">
+          <button class="btn" onclick="showDetails(${car.id})">VER DETALHES</button>
+          <button class="secondary ${isFav ? "active" : ""}" aria-label="Adicionar ${car.name} aos favoritos" onclick="toggleFav(${car.id})">${isFav ? "♥" : "♡"}</button>
+        </div>
+      </div>
+    </article>`;
+}
+
+function render() {
+  const query = document.getElementById("search").value.toLowerCase().trim();
+  const brand = document.getElementById("brand").value;
+  const filtered = cars.filter(car =>
+    (car.name + " " + car.brand).toLowerCase().includes(query) &&
+    (!brand || car.brand === brand)
+  );
+
+  carsEl.innerHTML = filtered.length
+    ? filtered.map(car => carCard(car)).join("")
+    : '<div class="empty">Nenhum carro encontrado. Tenta outra pesquisa.</div>';
+
+  const ranking = [...cars].sort((a, b) => b.speed - a.speed);
+  rankEl.innerHTML = ranking.map((car, i) => carCard(car, i)).join("");
+
+  const favs = cars.filter(car => favorites.includes(car.id));
+  favEl.innerHTML = favs.length
+    ? favs.map(car => carCard(car)).join("")
+    : '<div class="empty">Ainda não tens favoritos. Carrega no ♡ num carro para o guardar!</div>';
+
+  document.getElementById("total").textContent = cars.length;
+  document.getElementById("favCount").textContent = favorites.length;
+}
+
+function toggleFav(id) {
+  if (favorites.includes(id)) {
+    favorites = favorites.filter(fav => fav !== id);
+  } else {
+    favorites.push(id);
+  }
+  try {
+    localStorage.setItem("redline-favorites", JSON.stringify(favorites));
+  } catch (e) {
+    alert("O navegador não conseguiu guardar os favoritos.");
+  }
+  render();
+}
+
+function showDetails(id) {
+  const car = cars.find(item => item.id === id);
+  if (!car) return;
+  document.getElementById("detailContent").innerHTML = `
+    <div class="brand">${car.brand.toUpperCase()}</div>
+    <h2>${car.name}</h2>
+    <img src="${car.image}" alt="${car.name}" style="width:100%;max-height:230px;object-fit:cover;border-radius:4px" onerror="this.style.display='none'">
+    <p>${car.description}</p>
+    <div class="specs">
+      <div class="spec"><small>Potência</small><strong>${car.power.toLocaleString("pt-PT")} cv</strong></div>
+      <div class="spec"><small>Velocidade máxima</small><strong>${car.speed} km/h</strong></div>
+      <div class="spec"><small>0–100 km/h</small><strong>${car.zero}</strong></div>
+      <div class="spec"><small>Motor</small><strong>${car.engine}</strong></div>
+    </div>
+    <p style="font-size:12px">Especificações aproximadas; podem variar conforme a versão e o mercado.</p>`;
+  document.getElementById("details").showModal();
+}
+
+document.getElementById("search").addEventListener("input", render);
+document.getElementById("brand").addEventListener("change", render);
+
+render();
+</script>
+</body>
+</html>
